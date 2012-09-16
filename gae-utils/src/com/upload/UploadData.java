@@ -1,6 +1,8 @@
 package com.upload;
 
 
+import com.filmservice.credential.CredentialDetail;
+import com.filmservice.credential.TestCredentialImpl;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -11,8 +13,6 @@ import com.google.appengine.tools.remoteapi.RemoteApiOptions;
 
 import java.io.IOException;
 
-import src.common.filmservice.credential.CredentialDetail;
-import src.common.filmservice.credential.TestCredentialImpl;
 
 public class UploadData {
     public static void main(String[] args) throws IOException {

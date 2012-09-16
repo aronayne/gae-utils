@@ -1,10 +1,10 @@
 package com.query;
 	import java.io.IOException;
 
-import src.common.filmservice.credential.CredentialDetail;
-import src.common.filmservice.credential.ProdCredentialImpl;
-import src.common.filmservice.credential.TestCredentialImpl;
 
+import com.filmservice.credential.CredentialDetail;
+import com.filmservice.credential.ProdCredentialImpl;
+import com.filmservice.credential.TestCredentialImpl;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 	import com.google.appengine.api.datastore.DatastoreService;
 	import com.google.appengine.api.datastore.Query.Filter;
