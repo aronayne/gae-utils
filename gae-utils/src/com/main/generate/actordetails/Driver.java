@@ -1,4 +1,4 @@
-package src.common.main.generate.actordetails;
+package com.main.generate.actordetails;
 
 import java.util.Map;
 

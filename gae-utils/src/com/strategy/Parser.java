@@ -1,4 +1,4 @@
-package src.common.strategy;
+package com.strategy;
 
 public abstract class Parser {
 	

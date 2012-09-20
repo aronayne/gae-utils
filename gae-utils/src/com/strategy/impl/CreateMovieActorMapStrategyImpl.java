@@ -1,4 +1,4 @@
-package src.common.strategy.impl;
+package com.strategy.impl;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import src.common.strategy.ParseStrategy;
-import src.common.strategy.Parser;
+import com.strategy.ParseStrategy;
+import com.strategy.Parser;
+
 
 
 public class CreateMovieActorMapStrategyImpl extends Parser implements ParseStrategy {

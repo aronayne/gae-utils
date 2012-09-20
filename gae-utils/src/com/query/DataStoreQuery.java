@@ -15,6 +15,8 @@ import com.google.appengine.tools.remoteapi.RemoteApiOptions;
 
 public class DataStoreQuery {
 
+	private static final String KIND = "Movie";
+	
 	public static void main(String args[]) {
 		// Get the Datastore Service
 
@@ -28,17 +30,16 @@ public class DataStoreQuery {
 			RemoteApiInstaller installer = new RemoteApiInstaller();
 			installer.install(options);
 
-			DatastoreService datastore = DatastoreServiceFactory
-					.getDatastoreService();
-			Filter heightMinFilter = new FilterPredicate("year",
-					FilterOperator.EQUAL, 1998);
-			Query q = new Query("movie").setFilter(heightMinFilter);
+			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+			Filter filter = new FilterPredicate("year",FilterOperator.EQUAL, "2004");
+			Query q = new Query(KIND).setFilter(filter);
 			PreparedQuery pq = datastore.prepare(q);
 			for (Entity result : pq.asIterable()) {
-				System.out.println((String) result.getProperty("actors"));
+				System.out.println((String) result.getProperty("name"));
 			}
 
 			System.out.println("Finished!");
+			
 		}
 
 		catch (Exception e) {
@@ -46,6 +47,7 @@ public class DataStoreQuery {
 		}
 	}
 
+	
 }
 
 /*

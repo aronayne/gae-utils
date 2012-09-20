@@ -1,4 +1,4 @@
-package src.common.strategy;
+package com.strategy;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

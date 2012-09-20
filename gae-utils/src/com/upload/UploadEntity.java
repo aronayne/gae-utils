@@ -19,7 +19,6 @@ public class UploadEntity {
 	static {
 
 		try {
-
 			ds = DatastoreServiceFactory.getDatastoreService();
 		} catch (Exception e) {
 			e.printStackTrace();

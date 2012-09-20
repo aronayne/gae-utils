@@ -1,4 +1,4 @@
-package src.common.main.generate.gendetails;
+package com.main.generate.gendetails;
 
 
 import java.io.BufferedReader;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.exception.CustomException;
 import com.filmservice.credential.CredentialDetail;
 import com.filmservice.credential.TestCredentialImpl;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -17,14 +18,14 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.tools.remoteapi.RemoteApiInstaller;
 import com.google.appengine.tools.remoteapi.RemoteApiOptions;
+import com.strategy.Context;
+import com.strategy.CreateCsvFile;
+import com.strategy.CreateFiles;
+import com.strategy.impl.CreateMovieActorMapStrategyImpl;
+import com.strategy.impl.CreateMovieRatingMapStrategyImpl;
+import com.strategy.impl.CreateMovieYearMapStrategyImpl;
 import com.upload.UploadEntity;
 
-import src.common.strategy.Context;
-import src.common.strategy.CreateCsvFile;
-import src.common.strategy.CreateFiles;
-import src.common.strategy.impl.CreateMovieActorMapStrategyImpl;
-import src.common.strategy.impl.CreateMovieRatingMapStrategyImpl;
-import src.common.strategy.impl.CreateMovieYearMapStrategyImpl;
 
 public class Driver {
 
@@ -34,6 +35,7 @@ public class Driver {
 	 * allows process to be broken into separate tasks
 	 */
 	private static final String MOVIE_DETAILS_CSV = "d:/tmp/MovieCSV.csv";
+	private static final int NUMBER_OF_RECORDS_TO_UPLOAD = 500;
 	
 	static {
 		CredentialDetail c = new TestCredentialImpl();
@@ -43,7 +45,11 @@ public class Driver {
 		try {
 			installer.install(options);
 		} catch (IOException e) {
+			System.out.println("Check that GAE server web application is running");
 			e.printStackTrace();
+				System.exit(0);
+				
+
 		}
 	}
 	
@@ -68,7 +74,7 @@ public class Driver {
 		
 		createCsvFile(filmNames , filmRatingMap , filmYearMap);
 		
-		List<Entity> entityList = getEntityList();	
+		List<Entity> entityList = getEntityListFromCsv(NUMBER_OF_RECORDS_TO_UPLOAD);	
 		UploadEntity.upload(entityList);
 		
 		installer.uninstall();
@@ -84,21 +90,19 @@ public class Driver {
 		
 	}
 	
-	private static List<Entity> getEntityList(){
+	private static List<Entity> getEntityListFromCsv(int amount){
 		List<Entity> entityList = new ArrayList<Entity>();
 		
 		try {
 
+		int counter = 0;
 		BufferedReader br = new BufferedReader(new FileReader(MOVIE_DETAILS_CSV));
 		String line = br.readLine();
 		
-		while (line != null)
+		while (line != null && ++counter <= amount)
 		{
 			//TODO use a regular expression to parse the film name and year
 			try {
-				
-
-
 				String[] parts = line.split(",");
 				List<String> l = Arrays.asList(parts);
 				Entity movieEntity = new Entity("Movie");
