@@ -76,7 +76,9 @@ public class CreateCsvFile {
 			
 			if(ratingMap != null){
 				if(ratingMap.containsKey(filmName.trim())){
-					detailsMap.put(filmName.trim() , filmYearMap.get(filmName).trim() +","+ratingMap.get(filmName.trim()).trim());
+					String year = filmYearMap.get(filmName).trim();
+					String updatedName = filmName.trim().replace(" ("+year+")", "").toUpperCase();
+					detailsMap.put(updatedName , year +","+ratingMap.get(filmName.trim()).trim());
 /*					System.out.println(filmName.trim() + "," + filmYearMap.get(filmName).trim() +","+ratingMap.get(filmName.trim()).trim());
 					out1.write(filmName.trim() + "," + filmYearMap.get(filmName).trim() +","+ratingMap.get(filmName.trim()).trim());
 					out1.newLine();*/
